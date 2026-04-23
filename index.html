@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Compra en tu barrio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra en Calzada - Tu mercado local</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
-<header>
-  <div class="title">Compra en Calzada</div>
-  <input id="search" class="search" type="text" placeholder="Buscar comercios...">
-</header>
+    <header class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <i class="fas fa-shopping-basket"></i>
+                <div>
+                    <h1>Compra en <span>Calzada</span></h1>
+                    <p>Digitalizando el barrio</p>
+                </div>
+            </div>
+            <nav>
+                <a href="#" class="btn-outline">Unir mi negocio</a>
+            </nav>
+        </div>
+    </header>
 
-<div class="container">
+    <section class="hero">
+        <div class="container">
+            <h2>¿Qué necesitás hoy en el barrio?</h2>
+            <div class="search-box">
+                <input type="text" placeholder="Buscá panaderías, ropa, ferreterías...">
+                <button><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </div>
+    </section>
 
-  <!-- HERO CON IMAGEN REAL -->
-  <div class="hero">
-    <img src="img/calz.jpg" class="hero-img">
-    <div class="hero-overlay">
-      <h1>Todo lo que necesitás<br>en Rafael Calzada</h1>
-      <p>Descubrí comercios locales cerca tuyo</p>
-    </div>
-  </div>
+    <section class="categories container">
+        <h3 class="section-title">Explorar por Rubro</h3>
+        <div class="category-grid">
+            
+            <a href="gastronomia.html" class="category-item">
+                <div class="icon-circle bg-orange">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <span>Gastronomía</span>
+            </a>
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat" id="totalRubros">0 <span>rubros</span></div>
-    <div class="stat" id="totalComercios">0 <span>comercios</span></div>
-  </div>
+            <a href="indumentaria.html" class="category-item">
+                <div class="icon-circle bg-blue">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <span>Indumentaria</span>
+            </a>
 
-  <!-- GRID -->
-  <div id="rubros" class="grid"></div>
+            <a href="alimentacion.html" class="category-item">
+                <div class="icon-circle bg-green">
+                    <i class="fas fa-apple-whole"></i>
+                </div>
+                <span>Alimentación</span>
+            </a>
 
-</div>
+            <a href="hogar.html" class="category-item">
+                <div class="icon-circle bg-teal">
+                    <i class="fas fa-house-chimney"></i>
+                </div>
+                <span>Hogar</span>
+            </a>
 
-<script src="data/config.js"></script>
-<script src="js/app.js"></script>
+            <a href="industria.html" class="category-item">
+                <div class="icon-circle bg-gray">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <span>Industria</span>
+            </a>
 
-<script>
-let comerciosGlobal = [];
+            <a href="servicios.html" class="category-item">
+                <div class="icon-circle bg-dark-blue">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <span>Servicios</span>
+            </a>
 
-(async () => {
-  const data = await getComercios();
-  comerciosGlobal = data;
+        </div>
+    </section>
 
-  const rubros = [...new Set(data.map(c => c.rubro))];
+    <section class="cta container">
+        <div class="cta-card">
+            <i class="fas fa-file-excel"></i>
+            <div class="cta-text">
+                <h3>¿Tenés un comercio?</h3>
+                <p>Descargá nuestra plantilla, cargá tus productos y empezá a vender online.</p>
+            </div>
+            <a href="#" class="btn-primary">Descargar Plantilla</a>
+        </div>
+    </section>
 
-  document.getElementById("totalRubros").innerHTML =
-    `${rubros.length} <span>rubros</span>`;
-
-  document.getElementById("totalComercios").innerHTML =
-    `${data.length} <span>comercios</span>`;
-
-  renderRubros(rubros, data);
-})();
-
-function renderRubros(rubros, data) {
-  const container = document.getElementById("rubros");
-  container.innerHTML = "";
-
-  rubros.forEach(rubro => {
-    const count = data.filter(c => c.rubro === rubro).length;
-
-    const div = document.createElement("a");
-    div.href = `rubro.html?rubro=${rubro}`;
-    div.className = "card";
-
-    div.innerHTML = `
-      <div class="card-image">
-        <img src="img/${rubro}.jpg" onerror="this.src='img/default.jpg'">
-      </div>
-
-      <div class="card-content">
-        <h3>${rubro}</h3>
-        <p>${count} comercios</p>
-      </div>
-    `;
-
-    container.appendChild(div);
-  });
-}
-
-// búsqueda
-document.getElementById("search").addEventListener("input", e => {
-  const value = e.target.value.toLowerCase();
-
-  const filtrados = comerciosGlobal.filter(c =>
-    c.nombre.toLowerCase().includes(value)
-  );
-
-  const rubros = [...new Set(filtrados.map(c => c.rubro))];
-  renderRubros(rubros, filtrados);
-});
-</script>
+    <footer>
+        <div class="container">
+            <p>Hecho con ❤️ para los vecinos de Rafael Calzada</p>
+        </div>
+    </footer>
 
 </body>
 </html>
